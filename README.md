@@ -1,12 +1,12 @@
 # React-log-in-screen
 
-A basic working example of a login screen using react components to make a single page app
+A basic working example of a login screen using react components to make a single page app..
 
 How to install / use
 
 **Windows**
 
-double click the Index.html file in the file browser for it to automatically open in your default web browser
+double click the Index.html file in the file browser for it to automatically open in your default web browser.
 
 **Linux**
 
@@ -22,4 +22,4 @@ Or if you have firefox:
 
 **Mac OSX**
 
-double click the Index.html file in the file browser, it will open automatically in your default web browser
+double click the Index.html file in the file browser, it will open automatically in your default web browser.
