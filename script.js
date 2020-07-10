@@ -39,13 +39,12 @@ class App extends React.Component {
 
   }
   signIn(email, password) {
-		axios.post('http://localhost:3000',{
+		axios.post('http://localhost:3000/login',{
 			username: email,
 			password: password
 		})
 		.then((response) => {
-			console.log(response);
-			if(response.data === 'Login succeeded'){this.setState({
+			if(response.status === 201){this.setState({
 				user: 
 				{
 					email,
