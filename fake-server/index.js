@@ -29,7 +29,7 @@ function ProcessValidRequest(res, username, password) {
         LoginFailed(res);
         console.log("Login failed for unknown user", username);
     } else {
-        ProcessKnownUserLogin(password, user, res, username);
+        ProcessKnownUserLogin(res, password, user);
     }
 }
 
