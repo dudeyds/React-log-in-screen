@@ -1,23 +1,52 @@
-const express = require('express')
+const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require('cors');
+const fakeUsers = require("./fake-users.json");
 const app = express();
-const port = 3000
+const port = 3000;
 
-app.use(cors())
+function cors(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "*");
+    next();
+}
+
+app.use(cors);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.post('/', (req, res) => {
-    console.log('Got request',req.body, req);
-    let { username, password } = req.body || {};
-    if ((username === "james") && (password = "Password1!")) {
-        res.status(201).send("Login succeeded");
-        console.log("Login succeeded for", username);
+app.post("/login", (req, res) => {
+    const { username, password } = req.body || {};
+    if (!username || !password) {
+        BadRequest(res);
     } else {
-        res.status(403).send("Login failed");
-        console.log("Login failed for", username);
+        ProcessValidRequest(res, username, password);
     }
 });
+
+function ProcessValidRequest(res, username, password) {
+    const user = fakeUsers[username];
+    if (!user) {
+        LoginFailed(res);
+        console.log("Login failed for unknown user", username);
+    } else {
+        ProcessKnownUserLogin(res, password, user);
+    }
+}
+
+function ProcessKnownUserLogin(res, password, user) {
+    if (password === user.password) {
+        LoginSucceeded(res);
+        console.log("Login succeeded for", user.username);
+    } else {
+        LoginFailed(res);
+        console.log("Login failed for known user", user.username);
+    }
+}
+
+const LoginSucceeded = res => res.status(201).send("Login succeeded");
+
+const LoginFailed = res => res.status(403).send("Login failed");
+
+const BadRequest = res => res.status(400).send("Bad request");
 
 app.listen(port, () => console.log(`Fake login server listening at http://localhost:${port}`));
