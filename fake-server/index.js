@@ -38,7 +38,7 @@ function ProcessKnownUserLogin(res, password, user) {
         LoginSucceeded(res);
         console.log("Login succeeded for", user.username);
     } else {
-        LoginFailed();
+        LoginFailed(res);
         console.log("Login failed for known user", user.username);
     }
 }
