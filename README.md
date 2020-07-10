@@ -23,3 +23,30 @@ Or if you have firefox:
 **Mac OSX**
 
 double click the Index.html file in the file browser, it will open automatically in your default web browser.
+
+## Test server
+
+To install the test login server you will need to run `npm install` from the `fake-server` folder. This will install packages related to express.js
+
+### Run the server
+
+Run the server using the normal `npm start` command. You should see output like this:
+
+```
+C:\src\React-log-in-screen\fake-server>npm start
+
+> fake-server@1.0.0 start C:\src\React-log-in-screen\fake-server
+> node .
+
+Fake login server listening at http://localhost:3000
+```
+
+When a user authenticates against the server, you should see output like this:
+
+```
+Fake login server listening at http://localhost:3000
+{ username: 'freddy' }
+Login failed for freddy
+{ username: 'james' }
+Login succeeded for james
+```
