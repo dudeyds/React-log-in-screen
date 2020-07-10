@@ -25,7 +25,7 @@ app.post("/", (req, res) => {
             res.status(403).send("Login failed");
             console.log("Login failed for unknown user", username);
         } else {
-            if(user.password === "Password1!") {
+            if(password === user.password) {
                 res.status(201).send("Login succeeded");
                 console.log("Login succeeded for", username);
             } else {
