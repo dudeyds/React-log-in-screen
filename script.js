@@ -55,7 +55,6 @@ class App extends React.Component {
 			});
 			}
 		}, (error) => {
-			console.log(error.response.status);
 			if(error.response.status === 403) {this.setState( {
 				user:null,
 				toast: error.response.data
