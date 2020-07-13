@@ -20,8 +20,8 @@ class LoginForm extends React.Component {
     return (
       React.createElement("form", { onSubmit: this.handleSignIn.bind(this) },
       React.createElement("h3", null, "Sign in"),
-      React.createElement("input", { type: "text", ref: "email", placeholder: "enter your email" }),
-      React.createElement("input", { type: "password", ref: "password", placeholder: "enter password" }),
+      React.createElement("input", {type: "text", ref: "email", placeholder: "enter your email", "required": "required" }),
+      React.createElement("input", { type: "password", ref: "password", placeholder: "enter password", "required": "required" }),
       React.createElement("input", { type: "submit", value: "Login" })));
 
 
@@ -35,21 +35,42 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null };
+		user: null,
+		toast: null};
 
   }
   signIn(email, password) {
-    // sign in APIs here
-    this.setState({
-      user: {
-        email,
-        password } });
-
-
+		axios.post('http://localhost:3000/login',{
+			username: email,
+			password: password
+		})
+		.then((response) => {
+			if(response.status === 201){this.setState({
+				user: 
+				{
+					email,
+					password 
+				}, 
+				toast: null
+			});
+			} else {
+				this.setState( {
+				user:null,
+				toast: response.data
+			});
+			}
+		}, (error) => {
+			this.setState( {
+				user:null,
+				toast: error.response.data
+			});
+			
+			console.log(error);
+		});
   }
 
   signOut() {
-    this.setState({ user: null });
+    this.setState({ user: null, toast: null });
   }
 
   render() {
@@ -63,7 +84,13 @@ class App extends React.Component {
 
       //otherwise show the login form
       React.createElement(LoginForm, {
-        onSignIn: this.signIn.bind(this) })));
+        onSignIn: this.signIn.bind(this) }),
+		this.state.toast ?
+		React.createElement("div",{id: "snackbar", className: "show"},this.state.toast) :
+		null
+		
+		
+		));
 
 
 
