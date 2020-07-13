@@ -53,13 +53,18 @@ class App extends React.Component {
 				}, 
 				toast: null
 			});
+			} else {
+				this.setState( {
+				user:null,
+				toast: response.data
+			});
 			}
 		}, (error) => {
-			if(error.response.status === 403) {this.setState( {
+			this.setState( {
 				user:null,
 				toast: error.response.data
 			});
-			}
+			
 			console.log(error);
 		});
   }
